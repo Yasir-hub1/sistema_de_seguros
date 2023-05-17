@@ -15,23 +15,29 @@ return new class extends Migration
     {
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('users_id');         
+            // $table->unsignedBigInteger('users_id');
             $table->string('modelo')->nullable();
             $table->string('marca')->nullable();
             $table->string('placa')->unique();
             $table->string('combustible');
-            $table->bigInteger('potencia'); 
-            $table->double('altura'); 
-            $table->double('anchura'); 
-            $table->bigInteger('nro_asiento');  
-            $table->string('descripcion'); 
-            $table->string('imagen'); 
-            $table->bigInteger('estado');        
+            $table->bigInteger('potencia');
+            $table->double('altura');
+            $table->double('anchura');
+            $table->bigInteger('nro_asiento');
+            $table->string('descripcion');
+            $table->string('imagen');
+            $table->bigInteger('estado');
             $table->timestamps();
 
-            $table->foreign('users_id')
+       /*      $table->foreign('users_id')
             ->references('id')->on('users')
-            ->onDelete('set null');
+            ->onDelete('set null'); */
+
+            $table->foreignId('users_id')
+            ->nullable()
+            ->constrained('users')
+            ->cascadeOnUpdate()
+            ->nullOnDelete();
         });
     }
 

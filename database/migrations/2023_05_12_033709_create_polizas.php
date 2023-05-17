@@ -20,37 +20,59 @@ return new class extends Migration
             $table->timestamp('fecha_final');
             $table->string('moneda');
             $table->string('metodo_pago');
-            $table->double('prima_neta');  
-            $table->double('derecho_poliza');  
+            $table->double('prima_neta');
+            $table->double('derecho_poliza');
             $table->double('iva');
             $table->double('prima_total_anual');
-            $table->unsignedBigInteger('vehiculo_id');  
-            $table->unsignedBigInteger('users_id');  
-            $table->bigInteger('estado');  
+           /*  $table->unsignedBigInteger('vehiculo_id');
+            $table->unsignedBigInteger('users_id');   */
+            $table->bigInteger('estado');
             $table->timestamps();
 
-            $table->foreign('vehiculo_id')
+           /*  $table->foreign('vehiculo_id')
             ->references('id')->on('vehiculos')
-            ->onDelete('set null');
+            ->onDelete('set null'); */
+            $table->foreignId('vehiculo_id')
+            ->nullable()
+            ->constrained('vehiculos')
+            ->cascadeOnUpdate()
+            ->nullOnDelete();
 
-            
-            $table->foreign('users_id')
+
+           /*  $table->foreign('users_id')
             ->references('id')->on('users')
-            ->onDelete('set null');
+            ->onDelete('set null'); */
+            $table->foreignId('users_id')
+            ->nullable()
+            ->constrained('users')
+            ->cascadeOnUpdate()
+            ->nullOnDelete();
         });
         Schema::create('poliza_coberturas', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('poliza_id');  
-            $table->unsignedBigInteger('cobertura_id');  
+           /*  $table->unsignedBigInteger('poliza_id');
+            $table->unsignedBigInteger('cobertura_id');   */
             $table->timestamps();
 
-            $table->foreign('poliza_id')
+            /* $table->foreign('poliza_id')
             ->references('id')->on('polizas')
             ->onDelete('set null');
 
             $table->foreign('cobertura_id')
             ->references('id')->on('coberturas')
-            ->onDelete('set null');
+            ->onDelete('set null'); */
+
+            $table->foreignId('poliza_id')
+            ->nullable()
+            ->constrained('polizas')
+            ->cascadeOnUpdate()
+            ->nullOnDelete();
+
+            $table->foreignId('cobertura_id')
+            ->nullable()
+            ->constrained('coberturas')
+            ->cascadeOnUpdate()
+            ->nullOnDelete();
         });
     }
 
