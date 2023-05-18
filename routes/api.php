@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-
+use App\Http\Controllers\Api\ClienteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,9 +22,14 @@ Route::post("/signup", [AuthController::class, "signup"]);
 // Route::get("/user", [AuthController::class, "getUser"]);
 
 
+Route::post("/editarVehiculos",[ClienteController::class,"editarVehiculo"]);
 
 
 //TODO: RUTAS PROTEGIDAS POR SANCTUM
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post("/logout", [AuthController::class, "logout"]);
+    Route::get("/listaVehiculos",[ClienteController::class,"obtenerListaVehiculos"]);
+    Route::post("/eliminarVehiculo",[ClienteController::class,"eliminarVehiculo"]);
+
+
 });

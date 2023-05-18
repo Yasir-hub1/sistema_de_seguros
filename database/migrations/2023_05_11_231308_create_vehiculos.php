@@ -26,6 +26,7 @@ return new class extends Migration
             $table->bigInteger('nro_asiento');
             $table->string('descripcion');
             $table->string('imagen');
+            $table->string('path')->nullable();
             $table->bigInteger('estado');
             $table->timestamps();
 
